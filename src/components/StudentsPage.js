@@ -91,13 +91,17 @@ export default class StudentsPage extends Component {
           <Switch>
             <Route exact path='/students/new' render={() => <StudentForm onSubmit={this.createStudent}/>} />
             <Route exact path='/students/:id/edit' render={(routerProps)=>{
-              console.log(routerProps)
+              //console.log(routerProps)
               // if (!routerProps.student) {
               // //  this.props.history.push("/students")
               //   return null
               // }
               const id = routerProps.match.params.id
               const student = this.state.students.find( s =>  s.id === parseInt(id) )
+              if(!student){
+                this.props.history.push("/students")
+                return null
+              }
               return <EditForm student={student} editStudent={this.editStudent}/>} }/>
 
             <Route exact path='/students/:id' render={(routerProps) => {
